@@ -1,0 +1,51 @@
+
+├── src
+│   ├── annotations
+│   │   └── MethodDescription.class
+│   ├── components
+│   │   ├── BottomComponentPage.class
+│   │   ├── Breadcrumbs.class
+│   │   ├── HeaderComponentPage.class
+│   │   ├── SideMenuComponentPage.class
+│   │   ├── SortFilterAndPageItemsComponentPage.class
+│   │   └── TopMenuComponentPage.class
+│   ├── data
+│   │   └── configuration.properties
+│   ├── log4j2.xml
+│   ├── pages
+│   │   ├── AddressBookPage.class
+│   │   ├── BasePage.class
+│   │   ├── CustomerLoginPage.class
+│   │   ├── HomePage.class
+│   │   ├── MyAccountPage.class
+│   │   ├── MyWishListPage.class
+│   │   ├── PaymentMethodPage.class
+│   │   ├── ProductPage.class
+│   │   ├── ProductsPage.class
+│   │   ├── ShippingAddressPage.class
+│   │   ├── ShoppingCartPage.class
+│   │   └── ToysPage.class
+│   ├── tests
+│   │   ├── AddressBookTest.class
+│   │   ├── BaseTest.class
+│   │   ├── BuyFullCycleTest.class
+│   │   ├── CustomerLoginTest.class
+│   │   ├── FilterAndSortTest.class
+│   │   ├── MyAccountTest.class
+│   │   ├── MyWishListTest.class
+│   │   ├── ProductPageTest.class
+│   │   ├── SearchTest.class
+│   │   ├── ShoppingCartDialogTest.class
+│   │   ├── ShoppingCartPageTest.class
+│   │   ├── SideFilterTest.class
+│   │   └── SocialMediaTest.class
+│   └── utils
+│       ├── ExtentReportTest.class
+│       ├── LoggerUtils.class
+│       └── Utils.class
+├── project_structure.txt
+├── reports
+│   └── Spark.html
+└── testng.xml
+
+29 directories, 174 files
