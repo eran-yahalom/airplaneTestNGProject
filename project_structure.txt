@@ -48,4 +48,7 @@
 │   └── Spark.html
 └── testng.xml
 
+
+git remote add origin https://github.com/eran-yahalom/airplaneTestNGProject.git
+
 29 directories, 174 files
