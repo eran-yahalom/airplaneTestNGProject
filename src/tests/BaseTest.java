@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 
-import java.util.Set;
-
 import org.apache.commons.io.FileUtils;
-
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -20,13 +17,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 
 import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import pages.AddressBookPage;
 import utils.ExtentReportTest;
-import com.aventstack.extentreports.ExtentTest;
 import pages.CustomerLoginPage;
 import pages.HomePage;
 import pages.MyAccountPage;
@@ -75,13 +68,21 @@ public class BaseTest {
 		// Setup WebDriver
 		WebDriverManager.chromedriver().setup();
 		ChromeOptions options = new ChromeOptions();
+
+		// Initialize ChromeDriver with options
 		driver = new ChromeDriver(options);
 
 		// Maximize the browser window
 		driver.manage().window().maximize();
 
 		// Load the URL and set timeouts
-		driver.get(Utils.readProperty("url"));
+		String url = Utils.readProperty("url");
+		if (url != null && !url.isEmpty()) {
+			driver.get(url);
+		} else {
+			throw new IllegalArgumentException("URL is not specified or invalid.");
+		}
+
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(120));
 
@@ -127,6 +128,31 @@ public class BaseTest {
 		headerComponent.cleanCart();
 	}
 
+	@AfterMethod
+	public void afterMethod(ITestResult result) {
+		if (driver != null) { // Ensure the driver is not null
+			try {
+				if (result.getStatus() == ITestResult.FAILURE) {
+					// Capture screenshot on test failure
+					TakesScreenshot ts = (TakesScreenshot) driver;
+					File source = ts.getScreenshotAs(OutputType.FILE);
+					String screenshotPath = System.getProperty("user.dir") + "/Screens"
+							+ "Shots/" + result.getName()
+							+ ".png";
+					File destination = new File(screenshotPath);
+					FileUtils.copyFile(source, destination);
+					System.out.println("Screenshot taken: " + screenshotPath);
+				}
+			} catch (Exception e) {
+				System.err.println("Exception while taking screenshot: " + e.getMessage());
+			}
+		} else {
+			System.err.println("WebDriver is null. Skipping screenshot.");
+		}
+	}
+
+	
+
 	@AfterClass
 	public void tearDown() {
 		if (driver != null) {
@@ -135,24 +161,32 @@ public class BaseTest {
 		ExtentReportTest.flush();
 	}
 
-	@AfterMethod
-	public void afterMethod() {
-		// Log that the test execution is completed
-		ExtentReportTest.getTest().info("Test execution completed");
-	}
-
-	@AfterMethod
-	public void failedTest(ITestResult result) {
-		// check if the test failed
-		if (result.getStatus() == ITestResult.FAILURE) {
-			TakesScreenshot ts = (TakesScreenshot) driver;
-			File srcFile = ts.getScreenshotAs(OutputType.FILE);
-			try {
-				FileUtils.copyFile(srcFile, new File("./ScreenShots/" + result.getName() + ".jpg"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+//	@AfterClass
+//	public void tearDown() {
+//		if (driver != null) {
+//			driver.quit(); // Close the browser instance
+//		}
+//		ExtentReportTest.flush();
+//	}
+//
+//	@AfterMethod
+//	public void afterMethod() {
+//		// Log that the test execution is completed
+//		ExtentReportTest.getTest().info("Test execution completed");
+//	}
+//
+//	@AfterMethod
+//	public void failedTest(ITestResult result) {
+//		// check if the test failed
+//		if (result.getStatus() == ITestResult.FAILURE) {
+//			TakesScreenshot ts = (TakesScreenshot) driver;
+//			File srcFile = ts.getScreenshotAs(OutputType.FILE);
+//			try {
+//				FileUtils.copyFile(srcFile, new File("./ScreenShots/" + result.getName() + ".jpg"));
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 
 }

@@ -381,12 +381,12 @@ public class HeaderComponentPage extends BasePage {
 		logger.info("Click on My Account button");
 		ExtentReportTest.getTest().info("Click on My Account button");
 		try {
-			waiting(8000);
+			waiting(10000);
 			click(myAccountButton);
 			wait.until(ExpectedConditions.visibilityOf(header));
 		} catch (Exception e) {
 			ExtentReportTest.printExceptionToHTML(e, ExtentReportTest.getCurrentClassWithLineNumber(),
-					"Click on My Account button");
+					"failed Click on My Account button");
 		}
 	}
 

@@ -48,7 +48,7 @@ public class AddressBookPage extends BasePage {
 		logger.info("Click on change shipping address link");
 		ExtentReportTest.getTest().info("Click on change shipping address link");
 		try {
-			waiting(2000);
+			waiting(8000);
 			boxArea.get(1).findElement(By.cssSelector("a.action.edit")).click();
 		} catch (Exception e) {
 			ExtentReportTest.printExceptionToHTML(e, ExtentReportTest.getCurrentClassWithLineNumber(),

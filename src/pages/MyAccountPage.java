@@ -65,6 +65,7 @@ public class MyAccountPage extends BasePage {
 
 	@MethodDescription("Click on a specific tab")
 	public void clickOnMyaccountTab(String tabname) {
+		waiting(3000);
 		for (WebElement tab : tabArea) {
 			if (getText(tab).equalsIgnoreCase(tabname)) {
 				click(tab);
